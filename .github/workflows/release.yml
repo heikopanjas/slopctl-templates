@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Publish Templates Archive
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Create templates archive
+        run: zip -r slopctl-templates.zip templates/ defaults/ LICENSE
+
+      - name: Generate release info
+        id: release_info
+        run: |
+          echo "date=$(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+          echo "date_compact=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
+          echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: catalog-${{ steps.release_info.outputs.date_compact }}-${{ steps.release_info.outputs.short_sha }}
+          name: slopctl-templates ${{ steps.release_info.outputs.date_compact }}
+          prerelease: false
+          draft: false
+          make_latest: true
+          body: |
+            Template catalog snapshot.
+
+            **Build Date:** ${{ steps.release_info.outputs.date }}
+            **Commit:** ${{ github.sha }}
+
+            Consumed by `slopctl templates --update`; most users never need this
+            asset directly.
+          files: |
+            slopctl-templates.zip
