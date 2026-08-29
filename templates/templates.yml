@@ -161,6 +161,15 @@ languages:
         target: "$workspace"
       - source: "skills/rust-build-commands"
         target: "$workspace"
+  shell:
+    files:
+      - source: shell-skills-hint.md
+        target: "$instructions"
+    skills:
+      - source: "skills/shell-coding-conventions"
+        target: "$workspace"
+      - source: "skills/shell-build-commands"
+        target: "$workspace"
   swift:
     files:
       - source: swift-skills-hint.md
