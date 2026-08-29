@@ -48,8 +48,8 @@ preamble:
 # AGENTS.md remains the single source of truth. Claude Code, Copilot, and Cursor each
 # auto-load an instruction file of their own before they would otherwise discover
 # AGENTS.md, so all three share one redirect stub (agent-instructions-stub.md) pointed
-# at their respective native paths. Codex, Vibe, and OpenCode read AGENTS.md natively
-# and need no additional instruction file.
+# at their respective native paths. Codex, Vibe, OpenCode, Pi, Kiro, Goose, and Cline
+# read AGENTS.md natively and need no additional instruction file.
 agents:
   claude:
     instructions:
@@ -89,6 +89,26 @@ agents:
     prompts:
       - source: opencode/commands/init-session.md
         target: "$workspace/.opencode/commands/init-session.md"
+
+  pi:
+    prompts:
+      - source: pi/prompts/init-session.md
+        target: "$workspace/.pi/prompts/init-session.md"
+
+  kiro:
+    prompts:
+      - source: kiro/prompts/init-session.md
+        target: "$workspace/.kiro/prompts/init-session.md"
+
+  goose:
+    skills:
+      - source: skills/init-session
+        target: "$workspace"
+
+  cline:
+    skills:
+      - source: skills/init-session
+        target: "$workspace"
 
 # Reusable file groups shared across multiple languages
 # Each group has `files` (FileMapping list) and optional `skills` (SkillDefinition list).

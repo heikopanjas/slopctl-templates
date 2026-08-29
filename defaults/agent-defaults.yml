@@ -47,3 +47,35 @@ agents:
     skill_dir: '$workspace/.opencode/skills'
     userprofile_skill_dir: '$userprofile/.config/opencode/skills'
     reads_cross_client_skills: true
+
+  - name: pi
+    markers:
+      - .pi
+    prompt_dir: '$workspace/.pi/prompts'
+    skill_dir: '$workspace/.pi/skills'
+    userprofile_skill_dir: '$userprofile/.pi/agent/skills'
+    reads_cross_client_skills: true
+
+  - name: kiro
+    markers:
+      - .kiro
+    prompt_dir: '$workspace/.kiro/prompts'
+    skill_dir: '$workspace/.kiro/skills'
+    userprofile_skill_dir: '$userprofile/.kiro/skills'
+    reads_cross_client_skills: false
+
+  - name: goose
+    markers:
+      - .goose
+    prompt_dir: '$userprofile/.config/goose/prompts'
+    skill_dir: '$workspace/.goose/skills'
+    reads_cross_client_skills: true
+
+  - name: cline
+    markers:
+      - .cline
+      - .clinerules
+    prompt_dir: '$userprofile/.cline/data/workflows'
+    skill_dir: '$workspace/.cline/skills'
+    userprofile_skill_dir: '$userprofile/.cline/skills'
+    reads_cross_client_skills: false
