@@ -10,7 +10,7 @@ catalog itself.
 ## Layout
 
 ```
-v5/
+templates/
   templates.yml          # catalog definition: which files go where, for which agent/language
   AGENTS.md               # the main AGENTS.md template, with fragment insertion points
   preamble.md              # session-start guard, merged first into AGENTS.md
@@ -19,19 +19,26 @@ v5/
   claude/ copilot/ cursor/ opencode/
                            # per-agent prompts and instruction stubs
   skills/                 # Agent Skills (agentskills.io) installed by the catalog
+
+defaults/
+  agent-defaults.yml      # per-agent filesystem conventions (prompt/skill dirs, markers)
+  model-defaults.yml      # per-LLM-provider config (endpoints, API key env vars, default models)
 ```
 
-`v5/` names the V5 template format — see `templates.yml`'s own header comments for the format
-history and the insertion-point/placeholder reference. A future format revision would land
-alongside as a sibling `v6/`, not replace this directory.
+`templates.yml`'s own `version:` field and header comments track the template format's history
+and the insertion-point/placeholder reference — the directory name doesn't need to encode it.
+`defaults/` is a sibling of `templates/`, not nested inside it, since it describes agent and
+provider conventions rather than the template format itself.
 
 ## Making changes
 
-Edit files under `v5/`, following the conventions already in `templates.yml`. Then, from a
-slopctl workspace:
+Edit files under `templates/` (or `defaults/`), following the conventions already in
+`templates.yml`. Then, from a slopctl workspace:
 
 ```
-slopctl templates --update --from /path/to/slopctl-templates/v5
+slopctl templates --update --from /path/to/slopctl-templates/templates
+slopctl agents --update --from /path/to/slopctl-templates/defaults
+slopctl models --update --from /path/to/slopctl-templates/defaults
 slopctl templates --verify
 ```
 

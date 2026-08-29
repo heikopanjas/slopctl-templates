@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Create templates archive
-        run: zip -r slopctl-templates.zip v5/ LICENSE
+        run: zip -r slopctl-templates.zip templates/ defaults/ LICENSE
 
       - name: Generate release info
         id: release_info
